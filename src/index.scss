@@ -1,0 +1,55 @@
+@import 'style/normalize';
+@import 'style/colors';
+@import 'style/buttons';
+@import 'style/forms';
+@import 'style/grid';
+@import 'style/lists';
+@import 'style/tables';
+@import 'style/typography';
+@import 'style/utilities';
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.5em;
+  line-height: 1.6;
+  font-weight: 400;
+  font-family: $sans-serif-font-stack;
+  color: $text-color;
+  background-color: $body-background;
+}
+
+* { box-sizing: border-box; }
+
+hr {
+  margin-top: 3rem;
+  margin-bottom: 3.5rem;
+  border-width: 0;
+  border-top: 1px solid $default-border;
+}
+
+button,
+.button {
+  margin-bottom: 1rem;
+}
+
+input,
+textarea,
+select,
+fieldset {
+  margin-bottom: 1.5rem;
+}
+
+pre,
+blockquote,
+dl,
+figure,
+table,
+p,
+ul,
+ol,
+form {
+  margin-bottom: 2.5rem;
+}

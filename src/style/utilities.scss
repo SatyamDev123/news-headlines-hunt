@@ -1,0 +1,65 @@
+// Utilities
+@import 'colors';
+
+$default-shadow: 1px 1px 16px rgba($charcoal, .1);
+
+.u-full-width {
+  width: 100%;
+  box-sizing: border-box; 
+}
+
+.u-max-full-width {
+  max-width: 100%;
+  box-sizing: border-box; 
+}
+
+.u-pull-right {
+  float: right;
+}
+
+.u-pull-left {
+  float: left;
+}
+
+.text-center {
+  text-align: center;
+}
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.text-right {
+  text-align: right;
+}
+
+.text-muted {
+  color: $text-muted;
+}
+.icon {
+    width: 25px;
+}
+
+.img-scale {
+  width: 100%;
+}
+
+.container:after,
+.row:after,
+.u-cf {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.u-display-inline-block {
+  display: inline-block;
+}
+
+.u-display-block {
+  display: block;
+}
+
+.u-no-margin {
+  margin: 0;
+}

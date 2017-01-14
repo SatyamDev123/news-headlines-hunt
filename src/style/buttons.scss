@@ -1,0 +1,94 @@
+// Buttons
+@import 'colors';
+@import 'typography';
+
+.btn,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  display: inline-block;
+  height: 36px;
+  padding: 0 30px;
+  color: $button-text;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 300;
+  font-family: $sans-serif-font-stack;
+  line-height: 36px;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: $button-background;
+  border-radius: 1px;
+  border: 1px solid $button-background;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: .2s;
+}
+
+.btn:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+  background: $button-background-hover;
+  color: $button-text;
+  border-color: $button-background-hover;
+  outline: 0;
+}
+
+.btn.btn-primary,
+button.button-primary,
+input[type="submit"].button-primary,
+input[type="reset"].button-primary,
+input[type="button"].button-primary {
+  height: 48px;
+  padding: 0 60px;
+  line-height: 48px;
+  color: $button-text;
+  background-color: $button-background;
+  border-color: $button-background;
+}
+
+.btn.btn-primary:hover,
+button.btn-primary:hover,
+input[type="submit"].btn-primary:hover,
+input[type="reset"].btn-primary:hover,
+input[type="button"].btn-primary:hover,
+.btn.btn-primary:focus,
+button.btn-primary:focus,
+input[type="submit"].btn-primary:focus,
+input[type="reset"].btn-primary:focus,
+input[type="button"].btn-primary:focus {
+  color: $button-text;
+  background-color: $button-background-hover;
+  border-color: $button-background-hover;
+}
+
+.btn.btn-secondary,
+button.button-secondary,
+input[type="submit"].button-secondary,
+input[type="reset"].button-secondary,
+input[type="button"].button-secondary {
+  color: $button-background;
+  background-color: transparent;
+  border-color: $button-background;
+}
+
+.btn.btn-secondary:hover,
+button.btn-secondary:hover,
+input[type="submit"].btn-secondary:hover,
+input[type="reset"].btn-secondary:hover,
+input[type="button"].btn-secondary:hover,
+.btn.btn-secondary:focus,
+button.btn-secondary:focus,
+input[type="submit"].btn-secondary:focus,
+input[type="reset"].btn-secondary:focus,
+input[type="button"].btn-secondary:focus {
+  background-color: rgba($button-background-hover,.1);
+}

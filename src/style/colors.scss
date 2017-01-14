@@ -1,0 +1,45 @@
+// Colors
+
+// Palette
+// =============================================================================
+
+// Brand
+$blue:             #0080ff;
+
+// Secondary colors
+$solitude:          #E8F3FF;
+$steel:             #4778B0;
+$umber:             #B88B37;
+$emerald:           #568F49;
+
+// Utility colors
+$white:             #fff;
+$alabaster:         #f4f4f4;
+$silver:            #ccc;
+$dust:              #979797;
+$charcoal:          #333;
+
+// Applications
+// =============================================================================
+
+// Backgrounds
+$body-background: $white;
+$accent-background: $alabaster;
+$default-border: $silver;
+
+// Typography
+$text-color: $charcoal;
+$text-accent: $blue;
+$text-muted: $dust;
+
+// UI
+// $button-background: $steel;
+// $button-background-hover: darken($steel,8%);
+$button-background: $steel;
+$button-background-hover: darken($steel,8%);
+$button-text: $white;
+
+$text-highlight: $solitude;
+$ui-highlight: $solitude;
+
+$default-shadow: $charcoal;
