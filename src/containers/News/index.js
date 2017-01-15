@@ -83,11 +83,11 @@ class NewsTab extends Component {
         }).filter((country,index,self)=>{
             return index === self.indexOf(country);
         });
-        const firstSource = sources[0];
+        const firstSource = sources[1] || {};
         const sourceValue = firstSource.id;
         const selectedSource = firstSource;
-        const sortByValue = firstSource.sortBysAvailable[0];
-        const sortByValueList = firstSource.sortBysAvailable;
+        const sortByValue = firstSource.sortBysAvailable.includes('latest') ? 'latest' : 'top';
+        const sortByValueList = firstSource.sortBysAvailable.reverse();
         this.setState({
             countryList: countriesWithUnique,
             sourceList: sources,
@@ -100,7 +100,7 @@ class NewsTab extends Component {
                 newsList: news_data.articles,
                 categoryList: categoriesWithUnique,
                 sortByValueList: sortByValueList,
-                sortByValue: sortByValue,
+                sortByValue,
                 loadingNews: false
             });
         });
@@ -120,7 +120,7 @@ class NewsTab extends Component {
          this.setState({
             newsList: news_data.articles,
             sortByValue: source.sortBysAvailable[0],
-            sortByValueList: source.sortBysAvailable,
+            sortByValueList: source.sortBysAvailable.reverse(),
             loadingNews: false
         });
      })
@@ -318,6 +318,20 @@ class NewsTab extends Component {
                     <hr />
                 </div>
                 <div className="news-tab__content__list">
+                    {
+                        !loadingSource && <ul className="list-inline news-tab__content__sources-list">
+                                    {
+                                        sourceList.map(source=>
+                                            <li className={selectedSource.id === source.id ? 'active' : ''} onClick={this.onSourceChange.bind(this, source)}>
+                                                <div>
+                                                    <label>{source.name}</label>
+                                                    <span>{this.countryNameWithCode[source.country]}</span>
+                                                </div>
+                                            </li>
+                                        )
+                                    }
+                                </ul>
+                    }
                     {
                         (!loadingNews || isSortByOpen) &&
                             <div className="news-tab__content__sortBy">
