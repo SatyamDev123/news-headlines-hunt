@@ -14,7 +14,9 @@ class NewsTab extends Component {
       sourceList: [],
       newsList: [],
       sourceValue: '',
-      selectedSource: '',
+      selectedSource: {},
+      nextSelectSource:{},
+      nextSelectSourceIndex:0,
       sortByValue: '',
       sortByValueList: [],
       categoryValue: '',
@@ -84,10 +86,11 @@ class NewsTab extends Component {
             return index === self.indexOf(country);
         });
         const firstSource = sources[1] || {};
+        const nextSelectSource = sources.length > 2 ? sources[2] : {};
         const sourceValue = firstSource.id;
         const selectedSource = firstSource;
         const sortByValue = firstSource.sortBysAvailable.includes('latest') ? 'latest' : 'top';
-        const sortByValueList = firstSource.sortBysAvailable.reverse();
+        const sortByValueList = firstSource.sortBysAvailable;
         this.setState({
             countryList: countriesWithUnique,
             sourceList: sources,
@@ -101,28 +104,38 @@ class NewsTab extends Component {
                 categoryList: categoriesWithUnique,
                 sortByValueList: sortByValueList,
                 sortByValue,
-                loadingNews: false
+                loadingNews: false,
+                nextSelectSource,
+                nextSelectSourceIndex: nextSelectSource.id && 2
             });
         });
         
       });
   }
 
-  onSourceChange(source) {
+  onSourceChange(source, index) {
+      console.log('index',index);
     const { id, sortBysAvailable } = source;
+    const { sourceList, toggleFilterClass } = this.state;
+    const nextIndex = index + 1;
+    const isNextSourceAvailable = sourceList.length > (nextIndex) ? true : false;
     this.setState({
         sourceValue: id,
         selectedSource: source,
         loadingNews: true,
-        toggleFilterClass: this.state.toggleFilterClass && false,
+        toggleFilterClass: toggleFilterClass && false,
         isSortByOpen: false
-    })
+    });
+    // scroll top
+    window.scroll(0, 0);
     this._getNewsByQuery(this.NewsArticleApiUrl, id, sortBysAvailable[0]).then(news_data=>{
          this.setState({
             newsList: news_data.articles,
             sortByValue: sortBysAvailable.includes('latest') ? 'latest' : 'top',
-            sortByValueList: sortBysAvailable.reverse(),
-            loadingNews: false
+            sortByValueList: sortBysAvailable,
+            loadingNews: false,
+            nextSelectSource: isNextSourceAvailable ? sourceList[nextIndex] : {},
+            nextSelectSourceIndex: nextIndex
         });
      })
   }
@@ -244,7 +257,7 @@ class NewsTab extends Component {
 
   
   render() {
-    const { loadingSource, toggleFilterClass, isSortByOpen, loadingNews, countryList, categoryList, sortByValueList, openCategorySelect, openCountrySelect, sourceList, newsList, sourceValue, selectedSource, sortByValue, countryValue, categoryValue } = this.state;
+    const { loadingSource, toggleFilterClass, nextSelectSource, nextSelectSourceIndex, isSortByOpen, loadingNews, countryList, categoryList, sortByValueList, openCategorySelect, openCountrySelect, sourceList, newsList, sourceValue, selectedSource, sortByValue, countryValue, categoryValue } = this.state;
     return (
       <div className="news container">
           <aside className={`news-tab__filter columns three ${toggleFilterClass && 'news-tab__filter--show'}`}>
@@ -299,9 +312,9 @@ class NewsTab extends Component {
                         loadingSource ? <Loading /> :
                         <ul className="list-inline news-tab__filter__content__list">
                             {
-                                sourceList.map(source=>
+                                sourceList.map((source, index)=>
                                     <li className="news-tab__filter__content__source-box">
-                                        <div className={source.id === sourceValue ? 'active' : ''} onClick={this.onSourceChange.bind(this, source)}>
+                                        <div className={source.id === sourceValue ? 'active' : ''} onClick={this.onSourceChange.bind(this, source, index)}>
                                             <img className="img-scale" src={source.urlsToLogos.small} />
                                             <span>{source.name}</span>
                                         </div>
@@ -322,8 +335,8 @@ class NewsTab extends Component {
                     {
                         !loadingSource && <ul className="list-inline news-tab__content__sources-list">
                                     {
-                                        sourceList.map(source=>
-                                            <li className={selectedSource.id === source.id ? 'active' : ''} onClick={this.onSourceChange.bind(this, source)}>
+                                        sourceList.map((source, index)=>
+                                            <li className={selectedSource.id === source.id ? 'active' : ''} onClick={this.onSourceChange.bind(this, source, index)}>
                                                 <div>
                                                     <label>{source.name}</label>
                                                     <span>{this.countryNameWithCode[source.country]}</span>
@@ -336,12 +349,14 @@ class NewsTab extends Component {
                     {
                         (!loadingNews || isSortByOpen) &&
                             <div className="news-tab__content__sortBy">
-                                <h4><a href={selectedSource.url} target="blank" className="text-center">{selectedSource.name}</a></h4>
-                                {
-                                    sortByValueList.map(sort=>
-                                        <button className={sort===sortByValue ? 'active' : 'btn btn-secondary'} onClick={this.onSortByChange.bind(this, sort)}>{sort}</button>
-                                    )
-                                }
+                                <a href={selectedSource.url} target="blank" className="source-name text-center">{selectedSource.name}</a>
+                                <div className="sortBy-btn-list">
+                                    {
+                                        sortByValueList.map(sort=>
+                                            <button className={sort===sortByValue ? 'active' : 'btn btn-secondary'} onClick={this.onSortByChange.bind(this, sort)}>{sort}</button>
+                                        )
+                                    }
+                                </div>
                             </div>
                     }
                     {
@@ -361,7 +376,12 @@ class NewsTab extends Component {
                             </a>
                         )
                     }
-                </div>   
+                </div>
+                {
+                    nextSelectSource.name && <div className="next_news text-center">
+                                                <button type="button" onClick={this.onSourceChange.bind(this, nextSelectSource, nextSelectSourceIndex)}>Next {nextSelectSource.name}</button>
+                                            </div>
+                }
                 <div className="news__footer">
                     <div>
                         <span>Made by </span> <a href=  "https://satyamdev.firebaseapp.com" target="blank"><b>Satyam Dev</b></a>

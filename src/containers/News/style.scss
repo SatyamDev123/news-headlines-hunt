@@ -122,6 +122,7 @@
             }
             hr{
                 margin-top: 0;
+                margin-bottom: 1.5em;
                 width: 34%;
                 border: 1px solid #000;
             }
@@ -129,10 +130,11 @@
         .news-tab__content__list {
             min-height: 700px;
             .news-tab__content__sources-list {
+                display: none;
                 white-space: nowrap;
                 overflow: hidden;
                 overflow-x: auto;
-                margin-bottom: 16px;
+                margin-bottom: 1em;
                 box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2), inset -1px 0px 3px rgba(0, 0, 0, 0.1);
                 li {
                     text-align: center;
@@ -161,9 +163,26 @@
         }
         .news-tab__content__sortBy {
             text-align: center;
-            margin-bottom: 1em;
+            margin-bottom: .5em;
+            position: relative;
+            .sortBy-btn-list {
+                margin-top: 8px;
+            }
+            @media screen and (min-width: 600px) {
+                margin-bottom: 1.5em;
+                .sortBy-btn-list {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    margin-top: 0;
+                }
+
+            }
             button {
                 text-transform: capitalize;
+            }
+            .source-name {
+                font-size: 1.5em;
             }
         }
         .news-tab__content__card {
@@ -214,6 +233,9 @@
         .news-tab__filter {
             display: none;
         }
+        .news-tab__content__sources-list {
+            display: block;
+        }
         .news-tab__filter.news-tab__filter--show {
             display: block;
             width: 100%;
@@ -261,5 +283,14 @@
         // border-top: 1px solid #ddd;
         padding: 0 0 15px;
         text-align: center;
+    }
+    .next_news {
+        border-bottom: 1px solid #ddd;
+        margin: 1.5em 0 1em;
+        padding-bottom: 1em; 
+        button {
+            font-size: 1.5em;
+            height: 50px;
+        }
     }
 }
