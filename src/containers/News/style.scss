@@ -130,7 +130,9 @@
         .news-tab__content__list {
             min-height: 700px;
             .news-tab__content__sources-list {
-                display: none;
+                @media screen and (min-width: 967px) {
+                    display: none;
+                }
                 white-space: nowrap;
                 overflow: hidden;
                 overflow-x: auto;
@@ -233,9 +235,6 @@
         .news-tab__filter {
             display: none;
         }
-        .news-tab__content__sources-list {
-            display: block;
-        }
         .news-tab__filter.news-tab__filter--show {
             display: block;
             width: 100%;
@@ -248,12 +247,12 @@
             display: block;
         }
     }
-    @media screen and (min-width: 550px) and (max-width: 968px) {
+    @media screen and (min-width: 600px) and (max-width: 968px) {
         .news-tab__content {
             padding: 1.5em;
         }
     }
-    @media screen and (max-width: 549px) {
+    @media screen and (max-width: 599px) {
         .news-tab__content {
             padding: 0;
             .news-tab__content__card {
