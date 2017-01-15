@@ -109,18 +109,19 @@ class NewsTab extends Component {
   }
 
   onSourceChange(source) {
+    const { id, sortBysAvailable } = source;
     this.setState({
-        sourceValue: source.id,
+        sourceValue: id,
         selectedSource: source,
         loadingNews: true,
         toggleFilterClass: this.state.toggleFilterClass && false,
         isSortByOpen: false
     })
-    this._getNewsByQuery(this.NewsArticleApiUrl, source.id, source.sortBysAvailable[0]).then(news_data=>{
+    this._getNewsByQuery(this.NewsArticleApiUrl, id, sortBysAvailable[0]).then(news_data=>{
          this.setState({
             newsList: news_data.articles,
-            sortByValue: source.sortBysAvailable[0],
-            sortByValueList: source.sortBysAvailable.reverse(),
+            sortByValue: sortBysAvailable.includes('latest') ? 'latest' : 'top',
+            sortByValueList: sortBysAvailable.reverse(),
             loadingNews: false
         });
      })

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+sudo cp -r ~/work/newsheadlineshunt/build/* /var/www/newsheadlineshunt.com.com/html/
+sudo service nginx restart
