@@ -27,6 +27,7 @@
                         margin-left: 5px;
                         right: 8px;
                         top: 15px;
+                        width: 20px;
                     }
                     label {
                         font-weight: 400;
@@ -128,7 +129,9 @@
             }
         }
         .news-tab__content__list {
-            min-height: 700px;
+            .news-tab__content__list_article {
+                min-height: 700px;
+            }
             .news-tab__content__sources-list {
                 @media screen and (min-width: 967px) {
                     display: none;
@@ -137,7 +140,7 @@
                 overflow: hidden;
                 overflow-x: auto;
                 margin-bottom: 1em;
-                box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2), inset -1px 0px 3px rgba(0, 0, 0, 0.1);
+                box-shadow: 1px 1px 5px rgba(51,51,51,0.4);
                 li {
                     text-align: center;
                     cursor: pointer;
@@ -165,7 +168,7 @@
             }
         }
         .news-tab__content__sortBy {
-            text-align: center;
+            text-align: left;
             margin-bottom: .5em;
             position: relative;
             .sortBy-btn-list {
@@ -189,9 +192,10 @@
             }
         }
         .news-tab__content__card {
-            padding-bottom: 1em;
             margin-bottom: 1em;
             border-bottom: 1px solid #ddd;
+            box-shadow: 1px 1px 4px rgba(51,51,51,0.5);
+            padding: .5em;
         }
         .news-tab__content__card:hover {
             h3 {
@@ -202,17 +206,19 @@
     .toggle-filter-btn {
         display: none;
         position: fixed;
-        right: 8px;
-        bottom: 8px;
-        width: 50px;
-        height: 50px;
+        right: 16px;
+        bottom: 16px;
+        width: 60px;
+        height: 60px;
         text-align: center;
-        border-radius: 25px;
+        border-radius: 30px;
         padding: 0;
         margin: 0;
-        box-shadow: 1px 1px 15px rgba(51, 51, 51, 0.3);
+        box-shadow: 1px 1px 16px rgba(51, 51, 51, 0.2);
         z-index: 99;
         background: white;
+        outline: none;
+        border: 1px solid #ddd;
         img {
             height: 25px;
             position: relative;
@@ -277,6 +283,9 @@
                     margin-bottom: 0;
                 }
             }
+        }
+        .news-tab__content__sortBy {
+            text-align: center !important;
         }
     }
     .news__footer {

@@ -43,6 +43,12 @@ $default-shadow: 1px 1px 16px rgba($charcoal, .1);
 .img-scale {
   width: 100%;
 }
+.text-uppercase {
+  text-transform: uppercase;
+}
+.text-captalize {
+  text-transform: capitalize;
+}
 
 .container:after,
 .row:after,
