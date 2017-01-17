@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './style.scss';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import HorizantalScrollList from '../../components/HorizantalScrollList';
 
 class Home extends Component {
@@ -217,7 +217,7 @@ class Home extends Component {
             <header className="nhh__header">
                 <section className="container">
                     <img className="logo-img" src="./logo.png" alt="NHH" />
-                    <span className="brand-name">News Headlines Hunt</span>
+                    <Link to="/"><span className="brand-name">News Headlines Hunt</span></Link>
                 </section>
             </header>
             <nav className="nhh__nav-filter">
