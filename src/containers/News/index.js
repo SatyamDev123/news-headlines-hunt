@@ -111,7 +111,7 @@ class NewsTab extends Component {
   
     render() {
         const { isSortByOpen, loadingNews, sortByValueList, newsList, sourceValue, sortByValue } = this.state;
-        const { selectedSource, nextSelectSource, nextSelectSourceIndex, countryNameWithCode } = this.props;
+        const { selectedSource, countryNameWithCode } = this.props;
 
         return (
             <div> 
@@ -147,11 +147,6 @@ class NewsTab extends Component {
                         )
                     }
                 </div>
-                {
-                    nextSelectSource && nextSelectSource.name && <div className="next_news text-center">
-                                                <button type="button" onClick={this.props.handlerSourceChange.bind(null, nextSelectSource, nextSelectSourceIndex)}>Next {nextSelectSource.name}</button>
-                                            </div>
-                }
                 <div className="news__footer">
                     <div>
                         <span>Made by </span> <a href="https://satyamdev.firebaseapp.com" target="blank"><b>Satyam Dev</b></a>

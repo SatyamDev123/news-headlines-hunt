@@ -15,8 +15,6 @@ class Home extends Component {
       sourceList: [],
       sourceValue: '',
       selectedSource: {},
-      nextSelectSource:{},
-      nextSelectSourceIndex: 0,
       sortByValue: '',
       sortByValueList: [],
       categoryValue: '',
@@ -50,70 +48,95 @@ class Home extends Component {
       return fetch(this.NewsSourceApiUrl).then(res => res.json(), this._errorHandler);
   }
 
-  componentDidMount() {
-      const { source_id, source_sortBy } = this.props.params;
-      this._getSource().then(source_data => {
-        const { sources } = source_data;
-        this.sourcesData = sources;
-        
-        const categoriesWithUnique =  sources.map(source=>{
-            return source.category;
-        }).filter((source,index,self)=>{
-            return index === self.indexOf(source);
-        });
+  componentWillMount() {
+    
+    browserHistory.listen( location =>  {
+    //    var params=
+    });       
+  }
 
-        const countriesWithUnique =  sources.map(country=>{
-            return country.country;
-        }).filter((country,index,self)=>{
-            return index === self.indexOf(country);
-        });
-        let selectedSource = sources[1] || {};
-        let nextSelectSource = sources.length > 2 ? sources[2] : {};
-        let nextSelectSourceIndex = nextSelectSource.id && 2;
-        let sortBySource = selectedSource.sortBysAvailable.includes('latest') ? 'latest' : 'top';
-        
-        // get source by params value
-        if(source_id && source_sortBy) {
-          sources.forEach((source_by_id, index)=>{
-            if(source_by_id.id === source_id) {
-              selectedSource = source_by_id;
-              nextSelectSource = sources[index + 1];
-              nextSelectSourceIndex = index + 1;
-              sortBySource = source_by_id.sortBysAvailable.includes(source_sortBy) ? source_sortBy : source_by_id.sortBysAvailable[0]
-            }
-          });
-        }
-        
-        this.setState({
-            countryList: countriesWithUnique,
-            sourceList: sources,
-            sourceValue: selectedSource.id,
-            selectedSource,
-            sortBySource,
-            loadingSource: false,
-            categoryList: categoriesWithUnique,
-            nextSelectSource,
-            nextSelectSourceIndex
-        });        
-      });
-  }  
+  componentWillReceiveProps (nextProps) {
+      const { source_id, source_sortBy } = nextProps.params;
+      if(source_id !== this.props.params.source_id) {
+          this._updateStateOnLocationChange(source_id, source_sortBy);
+      }
+  }
   
-  onSourceChange(source, index) {
-    const { id, sortBysAvailable } = source;
-    const { sourceList, toggleFilterClass } = this.state;
-    const nextIndex = index + 1;
-    const isNextSourceAvailable = sourceList.length > (nextIndex) ? true : false;
-    let sortBySource = sortBysAvailable.includes('latest') ? 'latest' : 'top';
+  componentDidMount() {
+        this._getSource().then(source_data => {
+            const { sources } = source_data;
+            this.sourcesData = sources;
+            
+            const categoriesWithUnique =  sources.map(source=>{
+                return source.category;
+            }).filter((source,index,self)=>{
+                return index === self.indexOf(source);
+            });
+
+            const countriesWithUnique =  sources.map(country=>{
+                return country.country;
+            }).filter((country,index,self)=>{
+                return index === self.indexOf(country);
+            });
+
+            this.setState({
+                countryList: countriesWithUnique,
+                sourceList: sources,
+                loadingSource: false,
+                categoryList: categoriesWithUnique
+            });     
+            this._selectDefaultSourceOrWithParams(this.props.params);
+        });
+  }
+  
+  _selectDefaultSourceOrWithParams(params) {
+    const { source_id, source_sortBy } = params;
+    console.log('params', params)
+    const sources = this.sourcesData;
+    let selectedSource = sources[1] || {};
+    let sortBySource = selectedSource.sortBysAvailable.includes('latest') ? 'latest' : 'top';
+    console.log('source_by_id', source_id);
+    // get source by params value
+    if(source_id && source_sortBy) {
+        sources.forEach((source_by_id, index)=>{
+            if(source_by_id.id === source_id) {
+                selectedSource = source_by_id;
+                sortBySource = source_by_id.sortBysAvailable.includes(source_sortBy) ? source_sortBy : source_by_id.sortBysAvailable[0]
+            }
+        });
+    }
     this.setState({
-        sourceValue: id,
+        sourceValue: selectedSource.id,
+        selectedSource,
         sortBySource,
-        selectedSource: source,
-        nextSelectSource: isNextSourceAvailable && sourceList[nextIndex],
-        nextSelectSourceIndex: nextIndex,
-        toggleFilterClass: toggleFilterClass && false,
-        isSortByOpen: false
     });
-    browserHistory.push(`${id}/${sortBySource}`);
+  }
+
+  _updateStateOnLocationChange(source_id, source_sortBy) {
+    const { sourceList, toggleFilterClass } = this.state;
+    const source_by_id = sourceList.filter(source=>{
+        return source.id === source_id;
+    })[0];
+    console.log('source_by_id', source_by_id);
+    // source_by_id is not undifined
+    if(source_by_id) {
+        const { sortBysAvailable } = source_by_id;
+        source_sortBy = sortBysAvailable.includes(source_sortBy) ? source_sortBy : sortBysAvailable[0];
+        this.setState({
+            sourceValue: source_id,
+            sortBySource: source_sortBy,
+            selectedSource: source_by_id,
+            toggleFilterClass: toggleFilterClass && false,
+            isSortByOpen: false
+        });
+    } else {
+        this._selectDefaultSourceOrWithParams({source_id, source_sortBy});
+    }
+  }
+
+  onSourceChange(source) {
+    let sortBySource = source.sortBysAvailable.includes('latest') ? 'latest' : 'top';
+    browserHistory.push(`${source.id}/${sortBySource}`);
     window.scroll(0,0);
   }
 
@@ -209,18 +232,15 @@ class Home extends Component {
   }
 
   render() {
-    const { loadingSource, toggleFilterClass, sortBySource, nextSelectSource, nextSelectSourceIndex, countryList, categoryList, openCategorySelect, openCountrySelect, sourceList, sourceValue, selectedSource, countryValue, categoryValue } = this.state;
+    const { loadingSource, toggleFilterClass, sortBySource, countryList, categoryList, openCategorySelect, openCountrySelect, sourceList, sourceValue, selectedSource, countryValue, categoryValue } = this.state;
 
     // render child component with parent props
-    function renderChildren(props, apiHostUrl, selectedSource, nextSelectSource, nextSelectSourceIndex, sortBySource, onSourceChange, countryNameWithCode) {
+    function renderChildren(props, apiHostUrl, selectedSource, sortBySource, countryNameWithCode) {
         return React.Children.map(props.children, child => {
                     return React.cloneElement(child, {
                         apiHostUrl,
                         selectedSource,
-                        nextSelectSource,
-                        nextSelectSourceIndex,
                         sortBySource,
-                        handlerSourceChange: onSourceChange,
                         countryNameWithCode
                     })
                 });
@@ -316,7 +336,7 @@ class Home extends Component {
                                 }
                             </ul>
                 }
-                {renderChildren(this.props, this.NewsApiHost, selectedSource, nextSelectSource, nextSelectSourceIndex, sortBySource, this.onSourceChange.bind(this), this.countryNameWithCode)}
+                {renderChildren(this.props, this.NewsApiHost, selectedSource, sortBySource, this.countryNameWithCode)}
               </div>
         </div>
         <button type="button" className="toggle-filter-btn" onClick={this.toggleFilter.bind(this)}>
