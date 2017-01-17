@@ -4,37 +4,38 @@
     height: 100vh;
 }
 .nht-app__footer {
-    // border-top: 1px solid #ddd;
+    // border-top: 1px solid $brand;
     padding: 15px;
     text-align: center;
 }
 
 .nhh {
     .nhh__header {
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid $brand;
         height: 60px;
         padding: 0 1em;
         .brand-name {
             font-size: 2.5rem;
             line-height: 60px;
             text-align: center;
+            color: darken($brand, 10%);
         }
     }
     .nhh__nav-filter {
         ul {
             text-align: center;
             li:first-child {
-                border-left: 1px solid #ddd;
+                border-left: 1px solid $brand;
             }
         }
         li {
-            border-right: 1px solid #ddd;
+            border-right: 1px solid $brand;
             cursor: pointer;
             text-align: center;
             padding: 0 1em;
             min-width: 160px;
         }
-        li.active {
+        li.active,li.active:hover {
             background-color: $activeBgColor;
         }
         li:hover {
@@ -42,13 +43,23 @@
         }
         .nhh__nav-filter__tab {
             height: 45px;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid $brand;
             line-height: 45px;
+            overflow: hidden;
+            > ul {
+                padding-bottom: 17px;
+            }
         }
         .nhh__nav-filter__tab--source {
             height: 80px;
-            ul {
-                height: 100%;
+            overflow: hidden;
+            border-bottom: 1px solid $brand;
+            > ul {
+                padding-bottom: 17px;
+                .empty-source {
+                    height: 80px;
+                    line-height: 80px;
+                }
             }
             .filter__tab--source__box {
                 background-position: center center;
@@ -59,16 +70,12 @@
             }
             .filter__tab--source__label {
                 height: 30px;
-                label {
-                    position: relative;
-                    top: -8px;
-                }
             }
         }
     }
     .nhh__footer {
         text-align: center;
-        border-top: 1px solid #ddd;
+        border-top: 1px solid $brand;
         padding: 1em;
         margin-top: 1em;
     }

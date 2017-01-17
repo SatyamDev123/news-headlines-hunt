@@ -13,19 +13,23 @@
             button.active {
                 background: $activeBgColor;
             }
+            button:hover {
+                background: $hoverActiveBgColor;
+            }
         }
     }
     .nhh__content__articles {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        min-height: 600px;
         .nhh__content__article-card {
             .nhh-card__content__image {
                 background-color: $activeBgColor;
                 background-position: center center;
                 background-repeat: no-repeat;
                 background-size: contain;
-                height: 300px;
+                height: 200px;
                 width: 100%;
             }
             color: black;

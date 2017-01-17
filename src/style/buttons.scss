@@ -20,7 +20,7 @@ input[type="button"] {
   white-space: nowrap;
   background-color: $white;
   border-radius: 1px;
-  border: 1px solid $lightgray;
+  border: 1px solid $button-border-color;
   cursor: pointer;
   box-sizing: border-box;
   transition: .2s;
@@ -36,7 +36,6 @@ button:focus,
 input[type="submit"]:focus,
 input[type="reset"]:focus,
 input[type="button"]:focus {
-  background: $hoverActiveBgColor;
   color: $button-text;
   border-color: $button-border-color;
   outline: 0;

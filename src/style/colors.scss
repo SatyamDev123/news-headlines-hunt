@@ -4,6 +4,7 @@
 // =============================================================================
 
 // Brand
+$brand:             #c3e89c;
 $blue:             #0080ff;
 
 // Secondary colors
@@ -21,8 +22,8 @@ $charcoal:          #333;
 $lightgray:         #ddd;
 
 // Active UI state color
-$activeBgColor:       lighten(#ddd , 10%);
-$hoverActiveBgColor:  lighten(#ddd , 5%);
+$activeBgColor:       lighten(#c3e89c , 10%);
+$hoverActiveBgColor:  lighten(#c3e89c , 20%);
 
 // Applications
 // =============================================================================
@@ -42,7 +43,7 @@ $text-muted: $dust;
 // $button-background-hover: darken($steel,8%);
 $button-background:  $activeBgColor;
 $button-background-hover: $hoverActiveBgColor;
-$button-border-color: $lightgray;
+$button-border-color: #c3e89c;
 $button-text: black;
 
 $text-highlight: $solitude;

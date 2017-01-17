@@ -6,6 +6,7 @@ import ArrowUpIcon from './icons/arrow_up.png';
 import SearchIcon from './icons/search.png';
 import FilterIcon from './icons/filter.png';
 import Loading from '../../components/Loading';
+import HorizantalScrollList from '../../components/HorizantalScrollList';
 
 class Home extends Component {
   
@@ -91,11 +92,9 @@ class Home extends Component {
   
   _selectDefaultSourceOrWithParams(params) {
     const { source_id, source_sortBy } = params;
-    console.log('params', params)
     const sources = this.sourcesData;
     let selectedSource = sources[1] || {};
     let sortBySource = selectedSource.sortBysAvailable.includes('latest') ? 'latest' : 'top';
-    console.log('source_by_id', source_id);
     // get source by params value
     if(source_id && source_sortBy) {
         sources.forEach((source_by_id, index)=>{
@@ -246,6 +245,8 @@ class Home extends Component {
                 });
     }
 
+    console.log('loadingSource && sourceList.length', loadingSource , sourceList.length)
+
     return (
         <div className="nhh">
             <header className="nhh__header">
@@ -255,7 +256,7 @@ class Home extends Component {
             </header>
             <nav className="nhh__nav-filter">
             <div className="nhh__nav-filter__tab nhh__nav-filter__tab--country">
-                    <ul className="list-inline horizontal-scroll">
+                    <HorizantalScrollList classNameValue="nhh__nav-filter__tab--country__list">
                         {
                             countryList.map(countryChip=>
                                 <li className={countryChip === countryValue ? 'active' : ''} onClick={this.onCountryChange.bind(this, countryChip)}>
@@ -263,10 +264,10 @@ class Home extends Component {
                                 </li>
                             )
                         }
-                    </ul>
+                    </HorizantalScrollList>
             </div>
             <div className="nhh__nav-filter__tab nhh__nav-filter__tab--category">
-                <ul className="list-inline horizontal-scroll">
+                <HorizantalScrollList classNameValue="nhh__nav-filter__tab--category__list">
                     {
                         categoryList.map(categoyChip=>
                             <li className={categoyChip === categoryValue ? 'active' : ''} onClick={this.onCategoryChange.bind(this, categoyChip)}>
@@ -274,22 +275,25 @@ class Home extends Component {
                             </li>
                         )
                     }
-                </ul>   
+                </HorizantalScrollList>
             </div>
-            <div className="nhh__nav-filter__tab nhh__nav-filter__tab--source">
-                <ul className="list-inline horizontal-scroll">
+            <div className="nhh__nav-filter__tab--source">
+                <HorizantalScrollList classNameValue="nhh__nav-filter__tab--source__list">
                         {
-                            sourceList.length ? sourceList.map((source, index)=>
-                                <li className={source.id === sourceValue ? 'active' : ''}>
-                                    <div style={`background-image:url(${source.urlsToLogos.medium})`} className="filter__tab--source__box" onClick={this.onSourceChange.bind(this, source, index)}>
+                            sourceList.map((source, index)=>
+                                <li className={source.id === sourceValue ? 'active' : ''} onClick={this.onSourceChange.bind(this, source, index)}>
+                                    <div style={`background-image:url(${source.urlsToLogos.medium})`} className="filter__tab--source__box">
                                     </div>
                                     <div className="filter__tab--source__label">
-                                        <label>{source.name}</label>
+                                        <span>{source.name}</span>
                                     </div>
                                 </li>
-                            ) : <li><span>No data available</span></li>
+                            ) 
                         }
-                </ul>
+                        {
+                            (!loadingSource && !sourceList.length) && <li className="empty-source"><span>No news source available</span></li>
+                        }
+                </HorizantalScrollList>
             </div>
             </nav>
             {renderChildren(this.props, this.NewsApiHost, selectedSource, sortBySource, this.countryNameWithCode)}

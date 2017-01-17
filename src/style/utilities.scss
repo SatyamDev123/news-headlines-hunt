@@ -39,6 +39,9 @@ $default-shadow: 1px 1px 16px rgba($charcoal, .1);
 .icon {
     width: 25px;
 }
+.text-brand {
+  color: $brand;
+}
 .clearfix::after {
   content:"";
   display:table;
