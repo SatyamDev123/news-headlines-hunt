@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 
 class HorizantalScrollList extends Component {
-    constructor(props){
-        super(props);
-        
-    }
 
     componentDidMount () {
         const { classNameValue } = this.props;

@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import './style.scss';
 import { browserHistory } from 'react-router';
-import ArrowDownIcon from './icons/arrow_down.png';
-import ArrowUpIcon from './icons/arrow_up.png';
-import SearchIcon from './icons/search.png';
-import FilterIcon from './icons/filter.png';
-import Loading from '../../components/Loading';
 import HorizantalScrollList from '../../components/HorizantalScrollList';
 
 class Home extends Component {
@@ -22,10 +17,7 @@ class Home extends Component {
       countryValue: '',
       countryList: [],
       categoryList: [],
-      openCountrySelect:false,
-      openCategorySelect:false,
       loadingSource: true,
-      toggleFilterClass: false,
       sortBySource: ''
    }
   
@@ -112,7 +104,7 @@ class Home extends Component {
   }
 
   _updateStateOnLocationChange(source_id, source_sortBy) {
-    const { sourceList, toggleFilterClass } = this.state;
+    const { sourceList } = this.state;
     const source_by_id = sourceList.filter(source=>{
         return source.id === source_id;
     })[0];
@@ -125,7 +117,6 @@ class Home extends Component {
             sourceValue: source_id,
             sortBySource: source_sortBy,
             selectedSource: source_by_id,
-            toggleFilterClass: toggleFilterClass && false,
             isSortByOpen: false
         });
     } else {
@@ -150,8 +141,7 @@ class Home extends Component {
 
     this.setState({
         sourceList: sourceByCategory || [],
-        categoryValue: value,
-        openCategorySelect: false
+        categoryValue: value
     });
   }
 
@@ -167,23 +157,9 @@ class Home extends Component {
     this.setState({
         sourceList: sourceByCountry || [],
         countryValue: value,
-        openCountrySelect: false
     });
   }
-
-  onOpenCountrySelect() {
-      this.setState({
-          openCategorySelect:false,
-          openCountrySelect: !this.state.openCountrySelect
-      })
-  }
   
-  onOpenCategorySelect() {
-      this.setState({
-          openCategorySelect: !this.state.openCategorySelect,
-          openCountrySelect:false
-      })
-  }
   resetCountrySelect() {
         let souceListFilterData = this.sourcesData;
         const { categoryValue } = this.state;
@@ -194,7 +170,6 @@ class Home extends Component {
         }
         this.setState({
             countryValue: '',
-            openCountrySelect: false,
             sourceList: souceListFilterData
         });
   }
@@ -208,7 +183,6 @@ class Home extends Component {
         }
         this.setState({
             categoryValue: '',
-            openCategorySelect: false, 
             sourceList: souceListFilterData
         });
   }
@@ -224,23 +198,16 @@ class Home extends Component {
       });
   }
 
-  toggleFilter () {
-      this.setState({
-          toggleFilterClass: !this.state.toggleFilterClass
-      })
-  }
-
   render() {
-    const { loadingSource, toggleFilterClass, sortBySource, countryList, categoryList, openCategorySelect, openCountrySelect, sourceList, sourceValue, selectedSource, countryValue, categoryValue } = this.state;
+    const { loadingSource, sortBySource, countryList, categoryList, sourceList, sourceValue, selectedSource, countryValue, categoryValue } = this.state;
 
     // render child component with parent props
-    function renderChildren(props, apiHostUrl, selectedSource, sortBySource, countryNameWithCode) {
+    function renderChildren(props, apiHostUrl, selectedSource, sortBySource) {
         return React.Children.map(props.children, child => {
                     return React.cloneElement(child, {
                         apiHostUrl,
                         selectedSource,
-                        sortBySource,
-                        countryNameWithCode
+                        sortBySource
                     })
                 });
     }
@@ -249,7 +216,8 @@ class Home extends Component {
         <div className="nhh">
             <header className="nhh__header">
                 <section className="container">
-                <h1 className="brand-name">News Headlines Hunt</h1>
+                    <img className="logo-img" src="./logo.png" alt="NHH" />
+                    <span className="brand-name">News Headlines Hunt</span>
                 </section>
             </header>
             <nav className="nhh__nav-filter">
@@ -294,7 +262,7 @@ class Home extends Component {
                 </HorizantalScrollList>
             </div>
             </nav>
-            {renderChildren(this.props, this.NewsApiHost, selectedSource, sortBySource, this.countryNameWithCode)}
+            {renderChildren(this.props, this.NewsApiHost, selectedSource, sortBySource)}
             <footer className="nhh__footer">
                 <section>
                     <span>Made by </span> <a href="https://satyamdev.firebaseapp.com" target="blank"><b>Satyam Dev</b></a>

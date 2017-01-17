@@ -13,12 +13,24 @@
     .nhh__header {
         border-bottom: 1px solid $brand;
         height: 60px;
-        padding: 0 1em;
         .brand-name {
             font-size: 2.5rem;
             line-height: 60px;
             text-align: center;
             color: darken($brand, 15%);
+            font-family: "PT Serif", Georgia, serif;
+        }
+        .logo-img{
+            height: 40px;
+            margin-right: 5px;
+            position: relative;
+            top: 10px;
+        }
+        @media screen and (max-width: 600px){
+            padding: 0 .5em;
+            .brand-name {
+                font-size: 2.2rem;
+            }
         }
     }
     .nhh__nav-filter {

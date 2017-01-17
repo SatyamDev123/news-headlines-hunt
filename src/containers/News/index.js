@@ -113,8 +113,8 @@ class NewsTab extends Component {
 
   
     render() {
-        const { isSortByOpen, loadingNews, sortByValueList, newsList, sourceValue, sortByValue } = this.state;
-        const { selectedSource, countryNameWithCode } = this.props;
+        const { isSortByOpen, loadingNews, sortByValueList, newsList, sortByValue } = this.state;
+        const { selectedSource } = this.props;
 
         return (
             <main className="nhh__content">
