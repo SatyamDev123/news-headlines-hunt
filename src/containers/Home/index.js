@@ -131,12 +131,12 @@ class Home extends Component {
     } else {
         this._selectDefaultSourceOrWithParams({source_id, source_sortBy});
     }
+    window.scroll(0,0);
   }
 
   onSourceChange(source) {
     let sortBySource = source.sortBysAvailable.includes('latest') ? 'latest' : 'top';
     browserHistory.push(`${source.id}/${sortBySource}`);
-    window.scroll(0,0);
   }
 
   onCategoryChange(value) {
@@ -245,8 +245,6 @@ class Home extends Component {
                 });
     }
 
-    console.log('loadingSource && sourceList.length', loadingSource , sourceList.length)
-
     return (
         <div className="nhh">
             <header className="nhh__header">
@@ -291,7 +289,7 @@ class Home extends Component {
                             ) 
                         }
                         {
-                            (!loadingSource && !sourceList.length) && <li className="empty-source"><span>No news source available</span></li>
+                            (!loadingSource && !sourceList.length) && <li className="empty-source"><span className="text-brand">No news source available</span></li>
                         }
                 </HorizantalScrollList>
             </div>
