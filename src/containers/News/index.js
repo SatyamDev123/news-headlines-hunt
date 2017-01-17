@@ -114,48 +114,54 @@ class NewsTab extends Component {
         const { selectedSource, countryNameWithCode } = this.props;
 
         return (
-            <div> 
-                {
-                    (!loadingNews || isSortByOpen) &&
-                        <div className="news-tab__content__sortBy">
-                            <a href={selectedSource.url} target="blank" className="source-name text-center">{selectedSource.name} <span className="text-captalize"> ({countryNameWithCode[selectedSource.country]})</span></a>
+            <main className="nhh__content">
+                <div className="nhh__content__header container">
+                    {
+                        (!loadingNews || isSortByOpen) &&
                             <div className="sortBy-btn-list">
                                 {
                                     sortByValueList.map(sort=>
-                                        <button className={sort===sortByValue ? 'active' : 'btn btn-secondary'} onClick={this.onSortByChange.bind(this, sort)}>{sort}</button>
+                                        <button className={sort===sortByValue ? 'active' : ''} onClick={this.onSortByChange.bind(this, sort)}>{sort}</button>
                                     )
                                 }
                             </div>
-                        </div>
-                }
-                <div className="news-tab__content__list_article">
-                    {
-                        loadingNews ? <Loading /> : newsList.map((news, index)=>
-                            <a href={news.url} target="blank" key={`news${index}`} className="news-article-link">
-                                <section className="container news-tab__content__card">
-                                    <div className="columns three news-tab__content__card__image">
-                                        <img src={news.urlToImage} className="img-scale" />
-                                        <span className="u-pull-left">{selectedSource.name}</span>
-                                        <span className="text-muted u-pull-right">{this.dateToStr(news.publishedAt)}</span>
-                                    </div>
-                                    <div className="columns nine news-tab__content__card__details">
-                                        <h3>{news.title}</h3>
-                                        <p className="">{news.description}</p>
-                                    </div>
-                                </section>
-                            </a>
-                        )
                     }
                 </div>
-                <div className="news__footer">
-                    <div>
-                        <span>Made by </span> <a href="https://satyamdev.firebaseapp.com" target="blank"><b>Satyam Dev</b></a>
+                <article className="container"> 
+                    <div className="nhh__content__articles">
+                        {
+                            loadingNews ? <Loading /> : newsList.map((news, index)=>
+                                <a href={news.url} target="blank" key={`news${index}`} className="news-article-link nhh__content__article-card nhh-card">
+                                    <div style={`background-image:url(${news.urlToImage})`}  className="nhh-card__content__image">
+                                    </div>
+                                    <section className="nhh-card__content__details">
+                                        <div className="clearfix">
+                                            <span className="text-muted u-pull-left">{selectedSource.name}</span>
+                                            <span className="text-muted u-pull-right">{this.dateToStr(news.publishedAt)}</span>
+                                        </div>
+                                        <div>
+                                            <h3>{news.title}</h3>
+                                            <p>{news.description}</p>
+                                        </div>
+                                    </section>
+                                </a>
+                            )
+                        }
                     </div>
-                    <div>
-                        <span>news powered by </span><a href="https://newsapi.org" target="blank"><b>newsapi.org</b></a>
-                    </div>
+                </article>
+                <div className="nhh__content__header container show-md">
+                    {
+                        (!loadingNews || isSortByOpen) &&
+                            <div className="sortBy-btn-list">
+                                {
+                                    sortByValueList.map(sort=>
+                                        <button className={sort===sortByValue ? 'active' : ''} onClick={this.onSortByChange.bind(this, sort)}>{sort}</button>
+                                    )
+                                }
+                            </div>
+                    }
                 </div>
-            </div>
+            </main>
         );
     }
 }

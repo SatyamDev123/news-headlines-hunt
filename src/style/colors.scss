@@ -18,6 +18,11 @@ $alabaster:         #f4f4f4;
 $silver:            #ccc;
 $dust:              #979797;
 $charcoal:          #333;
+$lightgray:         #ddd;
+
+// Active UI state color
+$activeBgColor:       lighten(#ddd , 10%);
+$hoverActiveBgColor:  lighten(#ddd , 5%);
 
 // Applications
 // =============================================================================
@@ -35,9 +40,10 @@ $text-muted: $dust;
 // UI
 // $button-background: $steel;
 // $button-background-hover: darken($steel,8%);
-$button-background: $steel;
-$button-background-hover: darken($steel,8%);
-$button-text: $white;
+$button-background:  $activeBgColor;
+$button-background-hover: $hoverActiveBgColor;
+$button-border-color: $lightgray;
+$button-text: black;
 
 $text-highlight: $solitude;
 $ui-highlight: $solitude;

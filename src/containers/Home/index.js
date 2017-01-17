@@ -247,101 +247,60 @@ class Home extends Component {
     }
 
     return (
-      <div className="news container">
-          <aside className={`news-tab__filter columns three ${toggleFilterClass && 'news-tab__filter--show'}`}>
-                <section className="news-tab__filter__header">
-                    <ul className="list-inline news-tab__filter__header__tab">
-                        <li onClick={this.onOpenCountrySelect.bind(this)}>
-                            <label className="ellipsis">{ this.countryNameWithCode[countryValue] || 'All Country'}</label>
-                            <img class="icon u-pull-right" src={openCountrySelect ? ArrowUpIcon : ArrowDownIcon } />
-                        </li>
-                        <li onClick={this.onOpenCategorySelect.bind(this)}>
-                            <label className="ellipsis">{ categoryValue || 'All Category'}</label>
-                            <img class="icon u-pull-right" src={openCategorySelect ? ArrowUpIcon : ArrowDownIcon } />
-                        </li>
+        <div className="nhh">
+            <header className="nhh__header">
+                <section className="container">
+                <h1 className="brand-name">News Headlines Hunt</h1>
+                </section>
+            </header>
+            <nav className="nhh__nav-filter">
+            <div className="nhh__nav-filter__tab nhh__nav-filter__tab--country">
+                    <ul className="list-inline horizontal-scroll">
+                        {
+                            countryList.map(countryChip=>
+                                <li className={countryChip === countryValue ? 'active' : ''} onClick={this.onCountryChange.bind(this, countryChip)}>
+                                        <span className="text-uppercase">{ this.countryNameWithCode[countryChip] }</span>
+                                </li>
+                            )
+                        }
                     </ul>
-                    {
-                        openCategorySelect && 
-                        <ul className="categoy news-tab__filter__header__select">
-                            <li onClick={this.resetCategorySelect.bind(this)}>
-                            <span>All Category</span>
-                            </li>
-                            {
-                                categoryList.map(categoyChip=>
-                                    <li onClick={this.onCategoryChange.bind(this, categoyChip)}>
-                                        <span>{categoyChip}</span>
-                                    </li>
-                                )
-                            }
-                        </ul>
-                    }
-                    {
-                        openCountrySelect && 
-                        <ul className="news-tab__filter__header__select">
-                            <li onClick={this.resetCountrySelect.bind(this)}>
-                                <span>All Country</span>
-                            </li>
-                            {
-                                countryList.map(countryChip=>
-                                    <li onClick={this.onCountryChange.bind(this, countryChip)}>
-                                            <span>{ this.countryNameWithCode[countryChip] }</span>
-                                    </li>
-                                )
-                            }
-                        </ul>
-                    }
-                </section>
-                <section className="news-tab__filter__content">
-                    <div className="news-tab__filter__content__search-input">
-                        <input placeholder="Search source" type="text" onChange={ this.filterSourcesByValue.bind(this) } />
-                        <img src={SearchIcon} className="icon" />
-                    </div>
-                    {
-                        loadingSource ? <Loading /> :
-                        <ul className="list-inline news-tab__filter__content__list">
-                            {
-                                sourceList.length ? sourceList.map((source, index)=>
-                                    <li className="news-tab__filter__content__source-box">
-                                        <div className={source.id === sourceValue ? 'active' : ''} onClick={this.onSourceChange.bind(this, source, index)}>
-                                            <img className="img-scale" src={source.urlsToLogos.small} />
-                                            <span>{source.name}</span>
-                                            <label className="text-captalize">{source.category}</label>
-                                        </div>
-                                    </li>
-                                ) : <li><h6 className="text-center">No data available</h6></li>
-                            }
-                        </ul>
-                    }
-                </section>
-                
-          </aside>
-
-        <div className="news-tab__content nine columns offset-by-three">
-          <div className="news-tab__content__header">
-                <h1 className="text-center">News Headlines Hunt</h1>
-                <hr />
             </div>
-            <div className="news-tab__content__list">
-                {
-                    !loadingSource && <ul className="list-inline news-tab__content__sources-list">
-                                {
-                                     sourceList.map((source, index)=>
-                                        <li className={selectedSource.id === source.id ? 'active' : ''} onClick={this.onSourceChange.bind(this, source, index)}>
-                                            <div>
-                                                <label>{source.name}</label>
-                                                <span className="text-captalize">{source.category}</span><span className="text-uppercase"> ({source.country})</span>
-                                            </div>
-                                        </li>
-                                    )
-                                }
-                            </ul>
-                }
-                {renderChildren(this.props, this.NewsApiHost, selectedSource, sortBySource, this.countryNameWithCode)}
-              </div>
-        </div>
-        <button type="button" className="toggle-filter-btn" onClick={this.toggleFilter.bind(this)}>
-          <img src={ FilterIcon } />
-        </button>
+            <div className="nhh__nav-filter__tab nhh__nav-filter__tab--category">
+                <ul className="list-inline horizontal-scroll">
+                    {
+                        categoryList.map(categoyChip=>
+                            <li className={categoyChip === categoryValue ? 'active' : ''} onClick={this.onCategoryChange.bind(this, categoyChip)}>
+                                <span className="text-uppercase">{categoyChip}</span>
+                            </li>
+                        )
+                    }
+                </ul>   
+            </div>
+            <div className="nhh__nav-filter__tab nhh__nav-filter__tab--source">
+                <ul className="list-inline horizontal-scroll">
+                        {
+                            sourceList.length ? sourceList.map((source, index)=>
+                                <li className={source.id === sourceValue ? 'active' : ''}>
+                                    <div style={`background-image:url(${source.urlsToLogos.medium})`} className="filter__tab--source__box" onClick={this.onSourceChange.bind(this, source, index)}>
+                                    </div>
+                                    <div className="filter__tab--source__label">
+                                        <label>{source.name}</label>
+                                    </div>
+                                </li>
+                            ) : <li><span>No data available</span></li>
+                        }
+                </ul>
+            </div>
+            </nav>
+            {renderChildren(this.props, this.NewsApiHost, selectedSource, sortBySource, this.countryNameWithCode)}
+            <footer className="nhh__footer">
+                <section>
+                    <span>Made by </span> <a href="https://satyamdev.firebaseapp.com" target="blank"><b>Satyam Dev</b></a>
+                    <div>
+                        <span>news powered by </span><a href="https://newsapi.org" target="blank"><b>newsapi.org</b></a>
+                    </div>
+                </section>
+            </footer>
       </div>
     );
   }

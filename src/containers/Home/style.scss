@@ -1,3 +1,5 @@
+@import '../../style/colors';
+
 .nht-content {
     height: 100vh;
 }
@@ -5,4 +7,70 @@
     // border-top: 1px solid #ddd;
     padding: 15px;
     text-align: center;
+}
+
+.nhh {
+    .nhh__header {
+        border-bottom: 1px solid #ddd;
+        height: 60px;
+        padding: 0 1em;
+        .brand-name {
+            font-size: 2.5rem;
+            line-height: 60px;
+            text-align: center;
+        }
+    }
+    .nhh__nav-filter {
+        ul {
+            text-align: center;
+            li:first-child {
+                border-left: 1px solid #ddd;
+            }
+        }
+        li {
+            border-right: 1px solid #ddd;
+            cursor: pointer;
+            text-align: center;
+            padding: 0 1em;
+            min-width: 160px;
+        }
+        li.active {
+            background-color: $activeBgColor;
+        }
+        li:hover {
+            background-color: $hoverActiveBgColor;
+        }
+        .nhh__nav-filter__tab {
+            height: 45px;
+            border-bottom: 1px solid #ddd;
+            line-height: 45px;
+        }
+        .nhh__nav-filter__tab--source {
+            height: 80px;
+            ul {
+                height: 100%;
+            }
+            .filter__tab--source__box {
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                height: 50px;
+                width: 100%;
+            }
+            .filter__tab--source__label {
+                height: 30px;
+                label {
+                    position: relative;
+                    top: -8px;
+                }
+            }
+        }
+    }
+    .nhh__footer {
+        text-align: center;
+        border-top: 1px solid #ddd;
+        padding: 1em;
+        margin-top: 1em;
+    }
+
 }

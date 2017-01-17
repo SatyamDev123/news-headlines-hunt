@@ -39,6 +39,11 @@ $default-shadow: 1px 1px 16px rgba($charcoal, .1);
 .icon {
     width: 25px;
 }
+.clearfix::after {
+  content:"";
+  display:table;
+  clear:both;
+}
 
 .img-scale {
   width: 100%;
@@ -57,6 +62,11 @@ $default-shadow: 1px 1px 16px rgba($charcoal, .1);
   display: table;
   clear: both;
 }
+.horizontal-scroll {
+  overflow: hidden;
+  white-space: nowrap;
+  overflow-x: auto;
+}
 
 .u-display-inline-block {
   display: inline-block;
@@ -68,4 +78,10 @@ $default-shadow: 1px 1px 16px rgba($charcoal, .1);
 
 .u-no-margin {
   margin: 0;
+}
+
+@media screen and (min-width: 599px){
+  .show-md {
+    display: none;
+  }
 }
