@@ -26,6 +26,7 @@ class Home extends Component {
       super(props);
 
       this.NewsApiHost = 'https://newsapi.org/v1/';
+    //   this.NewsApiHost = 'https://127.0.0.1';
       this.NewsSourceApiUrl = `${this.NewsApiHost}sources?language=en`;
 
       this.sourcesData = [];
@@ -36,6 +37,8 @@ class Home extends Component {
           in: 'India',
           us: 'United States of America'
       };
+      this.toggleCategory = true;
+      this.toggleCountry = true;
   }
 
   _getSource() {
@@ -141,32 +144,55 @@ class Home extends Component {
   }
 
   onCategoryChange(value) {
+    if(this.state.categoryValue === value) {
+        this.toggleCategory = false;
+    } else {
+        this.toggleCategory = true;
+    }
+
     const sourceByCategory = this.sourcesData.filter(source=>{
         if(this.state.countryValue) {
+            if(!this.toggleCategory) {
+                return source.country === this.state.countryValue;
+            }
             return source.category === value && source.country === this.state.countryValue;
         } else {
+            if(!this.toggleCategory) {
+                return true;
+            }
             return source.category === value;
         }
     });
 
     this.setState({
         sourceList: sourceByCategory || [],
-        categoryValue: value
+        categoryValue: this.toggleCategory && value
     });
   }
 
   onCountryChange(value) {
+    if(this.state.countryValue === value) {
+        this.toggleCountry = false;
+    } else {
+        this.toggleCountry = true;
+    }
     const sourceByCountry = this.sourcesData.filter(source=>{
        if(this.state.categoryValue) {
-           return source.country === value && source.category === this.state.categoryValue;
+           if(!this.toggleCountry){
+               return source.category === this.state.categoryValue;
+           }
+           return source.country === value;
        } else {
+           if(!this.toggleCountry) {
+               return true;
+           }
            return source.country === value;
        }
     });
 
     this.setState({
         sourceList: sourceByCountry || [],
-        countryValue: value,
+        countryValue: this.toggleCountry && value,
     });
   }
   
