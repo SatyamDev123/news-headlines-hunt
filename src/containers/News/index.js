@@ -154,8 +154,8 @@ class NewsTab extends Component {
                 </article>
                 <div className="nhh__content__footer container">
                     {
-                        (!loadingNews || isSortByOpen) &&
-                            <div className="sortBy-btn-list u-pull-left hide-md">
+                        (!loadingNews || isSortByOpen) && sortByValueList.length > 1 &&
+                            <div className="sortBy-btn-list hide-md clearfix">
                                 {
                                     sortByValueList.map(sort=>
                                         <button className={sort===sortByValue ? 'active' : ''} onClick={this.onSortByChange.bind(this, sort)}>{sort}</button>
@@ -163,7 +163,7 @@ class NewsTab extends Component {
                                 }
                             </div>
                     }
-                    <div className="text-right">
+                    <div>
                         {
                             nextSelectSource.name && <button onClick={onSourceChange.bind(this, nextSelectSource)}>Next {nextSelectSource.name}</button>
                         }

@@ -24,6 +24,7 @@ input[type="button"] {
   cursor: pointer;
   box-sizing: border-box;
   transition: .2s;
+  text-transform: capitalize;
 }
 
 .btn:hover,
@@ -40,4 +41,12 @@ input[type="button"]:focus {
   color: $button-text;
   border-color: $button-border-color;
   outline: 0;
+}
+
+button.active,
+button.active:hover {
+    background: $activeBgColor;
+}
+button:hover {
+    background: $hoverActiveBgColor;
 }

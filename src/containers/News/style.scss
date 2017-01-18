@@ -5,19 +5,7 @@
     .nhh__content__header {
         height: 60px;
         line-height: 64px;
-        text-align: center; 
-        .sortBy-btn-list {
-            button {
-                text-transform: capitalize;
-            }
-            button.active,
-            button.active:hover {
-                background: $activeBgColor;
-            }
-            button:hover {
-                background: $hoverActiveBgColor;
-            }
-        }
+        text-align: center;
     }
     .nhh__content__articles {
         display: flex;
@@ -61,8 +49,7 @@
 
     }
     .nhh__content__footer {
-        height: 60px;
-        line-height: 64px;
+        text-align: center;
         @media screen and (max-width: 600px){
             padding: 0 1em;
         }
