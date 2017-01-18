@@ -77,6 +77,7 @@ class NewsTab extends Component {
 
     dateToStr (date) {
         let date_milliseconds = new Date(date).getTime();
+        date = (date && !date.includes('0001-01-01')) ? date : null;
         if(date && !isNaN(date_milliseconds)){
             // TIP: to find current time in milliseconds, use:
             let  current_time_milliseconds = new Date().getTime();
