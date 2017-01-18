@@ -163,7 +163,9 @@ class Home extends Component {
             return source.category === value;
         }
     });
-
+    if(sourceByCategory.length) {
+        this.onSourceChange(sourceByCategory[0]);
+    }
     this.setState({
         sourceList: sourceByCategory || [],
         categoryValue: this.toggleCategory && value
@@ -181,7 +183,7 @@ class Home extends Component {
            if(!this.toggleCountry){
                return source.category === this.state.categoryValue;
            }
-           return source.country === value;
+           return source.country === value && source.category === this.state.categoryValue;
        } else {
            if(!this.toggleCountry) {
                return true;
@@ -194,44 +196,6 @@ class Home extends Component {
         sourceList: sourceByCountry || [],
         countryValue: this.toggleCountry && value,
     });
-  }
-  
-  resetCountrySelect() {
-        let souceListFilterData = this.sourcesData;
-        const { categoryValue } = this.state;
-        if(categoryValue) {
-            souceListFilterData = this.sourcesData.filter(source=>{
-                return source.category === categoryValue;
-            });
-        }
-        this.setState({
-            countryValue: '',
-            sourceList: souceListFilterData
-        });
-  }
-  resetCategorySelect() {
-        let souceListFilterData = this.sourcesData;
-        const { countryValue } = this.state;
-        if(countryValue) {
-            souceListFilterData = this.sourcesData.filter(source=>{
-                return source.country === countryValue;
-            });
-        }
-        this.setState({
-            categoryValue: '',
-            sourceList: souceListFilterData
-        });
-  }
-
-  filterSourcesByValue(event) {
-      const value = event.target.value;
-      const copySourceData = [].concat(this.sourcesData);
-      const filteredSources =  copySourceData.filter(source=>{
-          return source.id.indexOf(value) !== -1 || source.name.indexOf(value) !== -1;
-      });
-      this.setState({
-          sourceList: filteredSources
-      });
   }
 
   render() {
