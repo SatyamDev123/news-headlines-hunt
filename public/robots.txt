@@ -1,0 +1,3 @@
+User-Agent: *
+Disallow: 
+Sitemap: http://www.newsheadlineshunt.com/sitemap.xml
