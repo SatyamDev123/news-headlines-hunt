@@ -36,6 +36,7 @@ button:focus,
 input[type="submit"]:focus,
 input[type="reset"]:focus,
 input[type="button"]:focus {
+  background: $button-background-hover;
   color: $button-text;
   border-color: $button-border-color;
   outline: 0;

@@ -114,7 +114,7 @@ class NewsTab extends Component {
   
     render() {
         const { isSortByOpen, loadingNews, sortByValueList, newsList, sortByValue } = this.state;
-        const { selectedSource } = this.props;
+        const { selectedSource, nextSelectSource, onSourceChange } = this.props;
 
         return (
             <main className="nhh__content">
@@ -152,10 +152,10 @@ class NewsTab extends Component {
                         }
                     </div>
                 </article>
-                <div className="nhh__content__header container show-md">
+                <div className="nhh__content__footer container">
                     {
                         (!loadingNews || isSortByOpen) &&
-                            <div className="sortBy-btn-list">
+                            <div className="sortBy-btn-list u-pull-left hide-md">
                                 {
                                     sortByValueList.map(sort=>
                                         <button className={sort===sortByValue ? 'active' : ''} onClick={this.onSortByChange.bind(this, sort)}>{sort}</button>
@@ -163,6 +163,11 @@ class NewsTab extends Component {
                                 }
                             </div>
                     }
+                    <div className="text-right">
+                        {
+                            nextSelectSource.name && <button onClick={onSourceChange.bind(this, nextSelectSource)}>Next {nextSelectSource.name}</button>
+                        }
+                    </div>
                 </div>
             </main>
         );

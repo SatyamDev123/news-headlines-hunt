@@ -18,7 +18,8 @@ class Home extends Component {
       countryList: [],
       categoryList: [],
       loadingSource: true,
-      sortBySource: ''
+      sortBySource: '',
+      nextSelectSource:{}
    }
   
   constructor(props) {
@@ -87,12 +88,15 @@ class Home extends Component {
     const sources = this.sourcesData;
     let selectedSource = sources[1] || {};
     let sortBySource = selectedSource.sortBysAvailable.includes('latest') ? 'latest' : 'top';
+    let nextSelectSource = sources.length > 2 ? sources[2] : {};
     // get source by params value
     if(source_id && source_sortBy) {
         sources.forEach((source_by_id, index)=>{
             if(source_by_id.id === source_id) {
                 selectedSource = source_by_id;
                 sortBySource = source_by_id.sortBysAvailable.includes(source_sortBy) ? source_sortBy : source_by_id.sortBysAvailable[0]
+                const nextIndex = index + 1;
+                nextSelectSource = sources.length > nextIndex ? sources[nextIndex] : {};
             }
         });
     }
@@ -100,15 +104,20 @@ class Home extends Component {
         sourceValue: selectedSource.id,
         selectedSource,
         sortBySource,
+        nextSelectSource
     });
   }
 
   _updateStateOnLocationChange(source_id, source_sortBy) {
     const { sourceList } = this.state;
-    const source_by_id = sourceList.filter(source=>{
-        return source.id === source_id;
+    let nextSelectSource = {};
+    const source_by_id = sourceList.filter((source, index)=>{
+        if(source.id === source_id) {
+            const nextIndex = index + 1;
+            nextSelectSource = sourceList.length > nextIndex ? sourceList[nextIndex] : {};
+            return true;
+        }
     })[0];
-    console.log('source_by_id', source_by_id);
     // source_by_id is not undifined
     if(source_by_id) {
         const { sortBysAvailable } = source_by_id;
@@ -117,6 +126,7 @@ class Home extends Component {
             sourceValue: source_id,
             sortBySource: source_sortBy,
             selectedSource: source_by_id,
+            nextSelectSource,
             isSortByOpen: false
         });
     } else {
@@ -199,15 +209,17 @@ class Home extends Component {
   }
 
   render() {
-    const { loadingSource, sortBySource, countryList, categoryList, sourceList, sourceValue, selectedSource, countryValue, categoryValue } = this.state;
+    const { loadingSource, sortBySource, countryList, categoryList, sourceList, sourceValue, selectedSource, countryValue, categoryValue, nextSelectSource } = this.state;
 
     // render child component with parent props
-    function renderChildren(props, apiHostUrl, selectedSource, sortBySource) {
+    function renderChildren(props, apiHostUrl, selectedSource, sortBySource, nextSelectSource, onSourceChange) {
         return React.Children.map(props.children, child => {
                     return React.cloneElement(child, {
                         apiHostUrl,
                         selectedSource,
-                        sortBySource
+                        sortBySource,
+                        nextSelectSource,
+                        onSourceChange
                     })
                 });
     }
@@ -262,7 +274,7 @@ class Home extends Component {
                 </HorizantalScrollList>
             </div>
             </nav>
-            {renderChildren(this.props, this.NewsApiHost, selectedSource, sortBySource)}
+            {renderChildren(this.props, this.NewsApiHost, selectedSource, sortBySource, nextSelectSource, this.onSourceChange.bind(this))}
             <footer className="nhh__footer">
                 <section>
                     <span>Made by </span> <a href="https://satyamdev.firebaseapp.com" target="blank"><b>Satyam Dev</b></a>
