@@ -151,7 +151,7 @@ class NewsTab extends Component {
                     <div className="nhh__content__articles">
                         {
                             loadingNews ? <Loading /> : newsList.map((news, index)=>
-                                <a href={news.url} target="blank" key={`news${index}`} className="news-article-link nhh__content__article-card nhh-card">
+                                <a href={news.url} target="_blank" key={`news${index}`} className="news-article-link nhh__content__article-card nhh-card">
                                     <div style={`background-image:url(${news.urlToImage || selectedSource.urlsToLogos.medium})`}  className="nhh-card__content__image">
                                     </div>
                                     <section className="nhh-card__content__details">
