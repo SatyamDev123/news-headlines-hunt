@@ -50,3 +50,12 @@ button.active:hover {
 button:hover {
     background: $hoverActiveBgColor;
 }
+
+@media screen and (max-width: 600px) {
+  button {
+    font-size: .9em;
+    padding: 0 15px;
+    height: 30px;
+    line-height: 30px;
+  }
+}

@@ -83,7 +83,32 @@
             }
             .filter__tab--source__label {
                 height: 30px;
+                line-height: 30px;
             }
+        }
+        @media screen and (max-width: 600px) {
+            font-size: 0.8em;
+            .nhh__nav-filter__tab {
+                height: 35px;
+                line-height: 35px;
+            }
+            .nhh__nav-filter__tab--source {
+                height: 50px;
+                > ul {
+                    .empty-source {
+                        height: 50px;
+                        line-height: 50px;
+                    }
+                }
+                .filter__tab--source__box {
+                    height: 30px;
+                }
+                .filter__tab--source__label {
+                    height: 20px;
+                    line-height: 20px;
+                }
+            }
+
         }
     }
     .nhh__footer {
