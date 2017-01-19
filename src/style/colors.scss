@@ -43,7 +43,7 @@ $text-muted: $dust;
 // $button-background-hover: darken($steel,8%);
 $button-background:  $activeBgColor;
 $button-background-hover: $hoverActiveBgColor;
-$button-border-color: #c3e89c;
+$button-border-color: darken( #c3e89c, 15%);
 $button-text: black;
 
 $text-highlight: $solitude;

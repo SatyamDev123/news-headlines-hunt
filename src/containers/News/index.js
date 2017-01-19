@@ -140,8 +140,8 @@ class NewsTab extends Component {
                         (!loadingNews || isSortByOpen) &&
                             <div className="sortBy-btn-list">
                                 {
-                                    sortByValueList.map(sort=>
-                                        <button className={sort===sortByValue ? 'active' : ''} onClick={this.onSortByChange.bind(this, sort)}>{sort}</button>
+                                    sortByValueList.map((sort,index)=>
+                                        <button style={index && `border-left:none`} className={sort===sortByValue ? 'active' : ''} onClick={this.onSortByChange.bind(this, sort)}>{sort}</button>
                                     )
                                 }
                             </div>
