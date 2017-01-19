@@ -136,7 +136,7 @@ class NewsTab extends Component {
                         {
                             loadingNews ? <Loading /> : newsList.map((news, index)=>
                                 <a href={news.url} target="blank" key={`news${index}`} className="news-article-link nhh__content__article-card nhh-card">
-                                    <div style={`background-image:url(${news.urlToImage})`}  className="nhh-card__content__image">
+                                    <div style={`background-image:url(${news.urlToImage || selectedSource.urlsToLogos.medium})`}  className="nhh-card__content__image">
                                     </div>
                                     <section className="nhh-card__content__details">
                                         <div className="clearfix">
@@ -166,7 +166,7 @@ class NewsTab extends Component {
                     }
                     <div>
                         {
-                            nextSelectSource.name && <button onClick={onSourceChange.bind(this, nextSelectSource)}>Next {nextSelectSource.name}</button>
+                            nextSelectSource.name && <button onClick={onSourceChange.bind(this, nextSelectSource, true)}>Next {nextSelectSource.name}</button>
                         }
                     </div>
                 </div>

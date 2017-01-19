@@ -63,6 +63,7 @@ class Home extends Component {
         this._getSource().then(source_data => {
             const { sources } = source_data;
             this.sourcesData = sources;
+            const params = this.props.params;
             
             const categoriesWithUnique =  sources.map(source=>{
                 return source.category;
@@ -82,7 +83,16 @@ class Home extends Component {
                 loadingSource: false,
                 categoryList: categoriesWithUnique
             });     
-            this._selectDefaultSourceOrWithParams(this.props.params);
+            this._selectDefaultSourceOrWithParams(params);
+            if(params.source_id) {
+                let intervalCheckingForSourceList = setInterval(()=>{
+                    const sourceElement = document.querySelector(`#source-${params.source_id}`);
+                    if(sourceElement) {
+                        this._scrollToSourceElement(params.source_id);
+                        clearInterval(intervalCheckingForSourceList);
+                    }
+                });
+            }
         });
   }
   
@@ -109,6 +119,7 @@ class Home extends Component {
         sortBySource,
         nextSelectSource
     });
+    this._scrollToSourceElement(selectedSource.id);
   }
 
   _updateStateOnLocationChange(source_id, source_sortBy) {
@@ -132,13 +143,33 @@ class Home extends Component {
             nextSelectSource,
             isSortByOpen: false
         });
+        if(this.enableScrollTo) {
+            this._scrollToSourceElement(source_id);
+        }
     } else {
         this._selectDefaultSourceOrWithParams({source_id, source_sortBy});
     }
     window.scroll(0,0);
   }
 
-  onSourceChange(source) {
+  _scrollToSourceElement(source_id) {
+    const sourceListElement = document.querySelector('.nhh__nav-filter__tab--source__list');
+    const selectedSourceOffsetLeft = document.querySelector(`#source-${source_id}`);
+    const windowWidthHalf = window.innerWidth / 2; // 70 is hack for making selected source on top of sort by button
+    sourceListElement.scrollLeft = selectedSourceOffsetLeft && selectedSourceOffsetLeft.offsetLeft - windowWidthHalf;
+  }
+
+  resetAllFilter() {
+      this._selectDefaultSourceOrWithParams({});
+      this.setState({
+          categoryValue:'',
+          countryValue:'',
+          sourceList: this.sourcesData
+      });
+  }
+
+  onSourceChange(source, enableScrollTo) {
+    this.enableScrollTo = enableScrollTo;
     let sortBySource = source.sortBysAvailable.includes('latest') ? 'latest' : 'top';
     browserHistory.push(`${source.id}/${sortBySource}`);
   }
@@ -219,7 +250,7 @@ class Home extends Component {
             <header className="nhh__header">
                 <section className="container">
                     <img className="logo-img" src="./logo.png" alt="NHH" />
-                    <Link to="/"><span className="brand-name">News Headlines Hunt</span></Link>
+                    <span className="brand-name" onClick={this.resetAllFilter.bind(this)}>News Headlines Hunt</span>
                 </section>
             </header>
             <nav className="nhh__nav-filter">
@@ -248,8 +279,8 @@ class Home extends Component {
             <div className="nhh__nav-filter__tab--source">
                 <HorizantalScrollList classNameValue="nhh__nav-filter__tab--source__list">
                         {
-                            sourceList.map((source, index)=>
-                                <li className={source.id === sourceValue ? 'active' : ''} onClick={this.onSourceChange.bind(this, source, index)}>
+                            sourceList.map(source=>
+                                <li id={`source-${source.id}`} className={source.id === sourceValue ? 'active' : ''} onClick={this.onSourceChange.bind(this, source, false)}>
                                     <div style={`background-image:url(${source.urlsToLogos.medium})`} className="filter__tab--source__box">
                                     </div>
                                     <div className="filter__tab--source__label">
