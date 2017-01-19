@@ -46,12 +46,15 @@ input[type="button"]:focus {
 button.active,
 button.active:hover {
     background: $activeBgColor;
+    color: $darkBrand;
 }
+
 button:hover {
     background: $hoverActiveBgColor;
 }
 
 @media screen and (max-width: 600px) {
+  .btn,  
   button {
     font-size: .9em;
     padding: 0 15px;

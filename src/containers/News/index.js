@@ -4,6 +4,7 @@ import './style.scss';
 import Loading from '../../components/Loading';
 import shallowCompare from 'preact-shallow-compare';
 import FACEBOOK_SHARE from './facebook_share.png';
+import TWITTER_SHARE from './twitter_share.png';
 
 class NewsTab extends Component {
   // static propTypes = {}
@@ -166,6 +167,7 @@ class NewsTab extends Component {
                                     </section>
                                     <div className="article-social-share text-center">
                                         <button onClick={this.shareToFacebook.bind(this, news.url)}>Share on <img src={FACEBOOK_SHARE} /></button>
+                                        <a class="btn"  href={`https://twitter.com/intent/tweet?text=${news.url}`}>Tweet on <img src={TWITTER_SHARE} /></a>
                                     </div>
                                 </a>
                             )

@@ -50,6 +50,7 @@
         }
         li.active,li.active:hover {
             background-color: $activeBgColor;
+            color: $darkBrand;
         }
         li:hover {
             background-color: $hoverActiveBgColor;
@@ -87,7 +88,10 @@
             }
         }
         @media screen and (max-width: 600px) {
-            font-size: 0.8em;
+            font-size: 0.9em;
+            li {
+                min-width: 130px;
+            }
             .nhh__nav-filter__tab {
                 height: 35px;
                 line-height: 35px;
