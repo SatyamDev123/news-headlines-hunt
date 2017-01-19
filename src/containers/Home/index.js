@@ -197,6 +197,7 @@ class Home extends Component {
     });
     if(sourceByCategory.length) {
         this.onSourceChange(sourceByCategory[0]);
+        this._scrollToSourceElement(sourceByCategory[0].id);
     }
     this.setState({
         sourceList: sourceByCategory || [],
