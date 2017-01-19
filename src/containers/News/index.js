@@ -117,7 +117,7 @@ class NewsTab extends Component {
         if (typeof(FB) != 'undefined' && FB != null ) {
             FB.ui({
                 method: 'share',
-                href: 'https://developers.facebook.com/docs/',
+                href: shareUrl,
             }, function(response){
                 if (response && !response.error_message) {
                     console.log('Posting completed.');
