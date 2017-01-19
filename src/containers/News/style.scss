@@ -38,6 +38,17 @@
                 .clearfix {
                     font-size: 1.3rem;
                 }
+                .article-social-share {
+                     button {
+                        font-size: 01em;
+                        padding: 0 10px;
+                        img {
+                            width: 20px;
+                            position: relative;
+                            top: 4px;
+                        }
+                     }
+                }
             }
         }
         

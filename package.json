@@ -91,6 +91,9 @@
     ]
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "globals": {
+      "FB": true
+    }
   }
 }

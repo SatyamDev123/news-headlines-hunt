@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 import './style.scss';
 import Loading from '../../components/Loading';
 import shallowCompare from 'preact-shallow-compare';
+import FACEBOOK_SHARE from './facebook_share.png';
 
 class NewsTab extends Component {
   // static propTypes = {}
@@ -112,6 +113,21 @@ class NewsTab extends Component {
         }
     }
 
+    shareToFacebook(shareUrl) {
+        if (typeof(FB) != 'undefined' && FB != null ) {
+            FB.ui({
+                method: 'share',
+                href: 'https://developers.facebook.com/docs/',
+            }, function(response){
+                if (response && !response.error_message) {
+                    console.log('Posting completed.');
+                } else {
+                    console.log('Error while posting.');
+                }
+            });
+        }
+    }
+
   
     render() {
         const { isSortByOpen, loadingNews, sortByValueList, newsList, sortByValue } = this.state;
@@ -146,6 +162,9 @@ class NewsTab extends Component {
                                         <div>
                                             <h3>{news.title}</h3>
                                             <p>{news.description}</p>
+                                        </div>
+                                        <div className="article-social-share">
+                                            <button onClick={this.shareToFacebook.bind(this, news.url)}>Share on <img src={FACEBOOK_SHARE} /></button>
                                         </div>
                                     </section>
                                 </a>
