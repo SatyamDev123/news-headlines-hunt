@@ -163,10 +163,10 @@ class NewsTab extends Component {
                                             <h3>{news.title}</h3>
                                             <p>{news.description}</p>
                                         </div>
-                                        <div className="article-social-share text-center">
-                                            <button onClick={this.shareToFacebook.bind(this, news.url)}>Share on <img src={FACEBOOK_SHARE} /></button>
-                                        </div>
                                     </section>
+                                    <div className="article-social-share text-center">
+                                        <button onClick={this.shareToFacebook.bind(this, news.url)}>Share on <img src={FACEBOOK_SHARE} /></button>
+                                    </div>
                                 </a>
                             )
                         }
