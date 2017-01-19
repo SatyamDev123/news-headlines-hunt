@@ -166,6 +166,7 @@ class Home extends Component {
           countryValue:'',
           sourceList: this.sourcesData
       });
+      browserHistory.push('/');
   }
 
   onSourceChange(source, enableScrollTo) {
@@ -222,7 +223,9 @@ class Home extends Component {
            return source.country === value;
        }
     });
-
+    if(sourceByCountry.length) {
+        this.onSourceChange(sourceByCountry[0]);
+    }
     this.setState({
         sourceList: sourceByCountry || [],
         countryValue: this.toggleCountry && value,
