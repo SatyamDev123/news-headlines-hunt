@@ -114,7 +114,7 @@ class NewsTab extends Component {
         }
     }
 
-    shareToFacebook(shareUrl) {
+    shareToFacebook(shareUrl, event) {
         if (typeof(FB) != 'undefined' && FB != null ) {
             FB.ui({
                 method: 'share',
@@ -127,6 +127,7 @@ class NewsTab extends Component {
                 }
             });
         }
+        event.preventDefault();
     }
 
   
@@ -166,8 +167,8 @@ class NewsTab extends Component {
                                         </div>
                                     </section>
                                     <div className="article-social-share text-center">
-                                        <button onClick={this.shareToFacebook.bind(this, news.url)}>Share on <img src={FACEBOOK_SHARE} /></button>
-                                        <a class="btn"  href={`https://twitter.com/intent/tweet?text=${news.url}`}>Tweet on <img src={TWITTER_SHARE} /></a>
+                                        <button onClick={this.shareToFacebook.bind(this, news.url)}>Share <img src={FACEBOOK_SHARE} /></button>
+                                        <a class="btn"  href={`https://twitter.com/intent/tweet?text=${news.url}`}>Tweet <img src={TWITTER_SHARE} /></a>
                                     </div>
                                 </a>
                             )
