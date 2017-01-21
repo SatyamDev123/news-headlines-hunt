@@ -178,7 +178,7 @@ class NewsTab extends Component {
                 <div className="nhh__content__footer container">
                     {
                         (!loadingNews || isSortByOpen) && sortByValueList.length > 1 &&
-                            <div className="sortBy-btn-list hide-md clearfix">
+                            <div className="sortBy-btn-list clearfix">
                                 {
                                     sortByValueList.map(sort=>
                                         <button className={sort===sortByValue ? 'active' : ''} onClick={this.onSortByChange.bind(this, sort)}>{sort}</button>
