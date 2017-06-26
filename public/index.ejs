@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>News Headlines Hunt</title>
+    <meta charset="utf-8">
+    <!--<link rel="dns-prefetch" href="//cdn.">-->
+    
+    <!--<link rel="preload" href="//logo.png" as="image">-->
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Get Latest news headlines from around the world. Get live news headlines, Check out today’s most recent news, Find the latest breaking news.">
+    <meta name="keywords" content="news headlines, breaking news, news online, U.S. news, world news, technology, sports, entertainment, business">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Mobile top bar-->
+    <!-- Chrome, Firefox OS, Opera and Vivaldi -->
+    <meta name="theme-color" content="#5e9523">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#5e9523">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#5e9523">
+
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    
+    <link rel="manifest" href="/manifest.json">
+
+    <link rel="stylesheet" href="//brick.a.ssl.fastly.net/PT+Serif:400/Roboto:300,400,600,700,400i">
+    <!--
+      Notice the use of %PUBLIC_URL% in the tag above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <base href="/" />
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-90367192-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </head>
+  <body>
+    <!--Facebook SDK-->
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '638215303028374',
+          xfbml      : true,
+          version    : 'v2.8'
+        });
+        FB.AppEvents.logPageView();
+      };
+
+      (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!-- End Facebook SDK-->
+    <!--Twitter SDK-->
+    <script>window.twttr = (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0],
+            t = window.twttr || {};
+          if (d.getElementById(id)) return t;
+          js = d.createElement(s);
+          js.id = id;
+          js.src = "https://platform.twitter.com/widgets.js";
+          fjs.parentNode.insertBefore(js, fjs);
+
+          t._e = [];
+          t.ready = function(f) {
+            t._e.push(f);
+          };
+
+          return t;
+        }(document, "script", "twitter-wjs"));
+    </script>
+    <!--End Twitter SDK-->
+    <div id="root">
+        <%- markup -%>
+    </div>
+    <script type="text/javascript">
+      var INITIAL_VALUE = <%- data -%>
+    </script>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start`.
+      To create a production bundle, use `npm run build`.
+    -->
+  </body>
+</html>
