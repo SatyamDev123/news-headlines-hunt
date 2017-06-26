@@ -1,9 +1,3 @@
-# News headlines hunt
-## Get Latest news headlines from around the world. from top news vendor 
-
-### Installation and server
-#### 
-
 ## News headlines hunt
 Get Latest news headlines from around the world and from top news vendor.
 
